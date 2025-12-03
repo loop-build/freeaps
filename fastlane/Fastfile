@@ -33,7 +33,13 @@ platform :ios do
       issuer_id: ENV['FASTLANE_ISSUER_ID'],
       key_filepath: "fastlane/AuthKey.p8"
     )
-
+    # 打印 Bundle ID 到日志
+    sh "echo '===== BUNDLE ID DEBUG INFO ====='"
+    sh "echo 'TEAMID: #{ENV['TEAMID']}'"
+    sh "echo 'FreeAPS: ru.artpancreas.#{ENV['TEAMID']}.FreeAPS'"
+    sh "echo 'WatchApp: ru.artpancreas.#{ENV['TEAMID']}.FreeAPS.watchkitapp'"
+    sh "echo 'WatchExt: ru.artpancreas.#{ENV['TEAMID']}.FreeAPS.watchkitapp.watchkitextension'"
+    sh "echo '================================='"
     build_app(
       workspace: "FreeAPS.xcworkspace",
       scheme: "FreeAPS X",
