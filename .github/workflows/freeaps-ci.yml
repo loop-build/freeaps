@@ -22,12 +22,12 @@ jobs:
       - name: Install fastlane
         run: sudo gem install fastlane -NV
 
-      - name: Decode App Store API key
+      - name: Write App Store API key
         env:
           FASTLANE_KEY: ${{ secrets.FASTLANE_KEY }}
         run: |
           mkdir -p fastlane
-          echo "$FASTLANE_KEY" | base64 --decode > fastlane/AuthKey.p8
+          printf '%s\n' "$FASTLANE_KEY" > fastlane/AuthKey.p8
 
       - name: Build and upload with fastlane
         env:
