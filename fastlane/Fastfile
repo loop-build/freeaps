@@ -39,7 +39,7 @@ platform :ios do
       scheme: "FreeAPS X",
       export_method: "app-store",
       export_team_id: ENV['TEAMID'],
-      xcargs: "-allowProvisioningUpdates"
+      xcargs: "-allowProvisioningUpdates SKIP_WATCH_COMPILE=YES"
     )
 
     upload_to_testflight(
