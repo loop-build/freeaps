@@ -15,7 +15,7 @@ platform :ios do
       "ru.artpancreas.#{ENV['TEAMID']}.FreeAPS.watchkitapp.watchkitextension"
     ]
 
-    %w[appstore development].each do |type|
+    %w[appstore].each do |type|
       match(
         type: type,
         app_identifier: app_ids,
