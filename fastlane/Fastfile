@@ -18,9 +18,7 @@ platform :ios do
         type: type,
         app_identifier: app_ids,
         readonly: false,
-        api_key: api_key,
-        keychain_name: "fastlane_tmp_keychain",
-        keychain_password: ENV["MATCH_PASSWORD"]
+        api_key: api_key
       )
     end
   end
@@ -51,9 +49,7 @@ platform :ios do
       type: "appstore",
       app_identifier: app_ids,
       readonly: true,
-      api_key: api_key,
-      keychain_name: "fastlane_tmp_keychain",
-      keychain_password: ENV["MATCH_PASSWORD"]
+      api_key: api_key
     )
     
     build_app(
