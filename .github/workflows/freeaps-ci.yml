@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
   push:
     branches:
-      - main
+      - master
 
 jobs:
   build:
@@ -22,8 +22,7 @@ jobs:
       - name: Install fastlane
         run: sudo gem install fastlane -NV
 
-      # 使用组织级 FASTLANE_KEY（p8 Base64）
-            - name: Decode App Store API key
+      - name: Decode App Store API key
         env:
           FASTLANE_KEY: ${{ secrets.FASTLANE_KEY }}
         run: |
@@ -35,4 +34,3 @@ jobs:
           FASTLANE_ISSUER_ID: ${{ secrets.FASTLANE_ISSUER_ID }}
           FASTLANE_KEY_ID: ${{ secrets.FASTLANE_KEY_ID }}
         run: fastlane ios beta
-
