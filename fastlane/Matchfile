@@ -4,3 +4,7 @@ git_url("https://x-access-token:#{ENV['GH_PAT']}@github.com/loop-build/Match-Sec
 
 type("appstore")
 git_branch("master")
+
+force(true)
+force_for_new_certificates(true)
+include_all_certificates(true)
