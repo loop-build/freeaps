@@ -1,0 +1,8 @@
+storage_mode("git")
+
+git_url("https://x-access-token:#{ENV['GH_PAT']}@github.com/loop-build/Match-Secrets.git")
+
+type("appstore")
+git_branch("master")
+
+decrypt_optional(true)
