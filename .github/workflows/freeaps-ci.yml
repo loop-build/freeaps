@@ -33,4 +33,5 @@ jobs:
         env:
           FASTLANE_ISSUER_ID: ${{ secrets.FASTLANE_ISSUER_ID }}
           FASTLANE_KEY_ID: ${{ secrets.FASTLANE_KEY_ID }}
+          TEAMID: ${{ secrets.TEAMID }}
         run: fastlane ios beta
