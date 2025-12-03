@@ -11,7 +11,7 @@ platform :ios do
 
     build_app(
       workspace: "FreeAPS.xcworkspace",
-      scheme: "FreeAPS",
+      scheme: "FreeAPS X",
       export_method: "app-store"
     )
 
