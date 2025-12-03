@@ -6,7 +6,7 @@ platform :ios do
     api_key = app_store_connect_api_key(
       key_id: ENV['FASTLANE_KEY_ID'],
       issuer_id: ENV['FASTLANE_ISSUER_ID'],
-      key_filepath: "fastlane/AuthKey.p8"  # 下面 workflow 会生成这个文件
+      key_filepath: "fastlane/AuthKey.p8"
     )
 
     build_app(
