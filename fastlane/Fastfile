@@ -42,7 +42,8 @@ platform :ios do
     sh "echo '================================='"
     build_app(
       workspace: "FreeAPS.xcworkspace",
-      scheme: "FreeAPS",
+      scheme: "FreeAPS X",
+      configuration: "Release",          # ⭐ 强制使用 Release
       export_method: "app-store",
       export_team_id: ENV['TEAMID'],
       xcargs: "-allowProvisioningUpdates SKIP_WATCH_COMPILE=YES"
