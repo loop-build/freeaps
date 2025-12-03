@@ -8,13 +8,11 @@ platform :ios do
       issuer_id: ENV['FASTLANE_ISSUER_ID'],
       key_filepath: "fastlane/AuthKey.p8"
     )
-
     app_ids = [
       "ru.artpancreas.#{ENV['TEAMID']}.FreeAPS",
       "ru.artpancreas.#{ENV['TEAMID']}.FreeAPS.watchkitapp",
       "ru.artpancreas.#{ENV['TEAMID']}.FreeAPS.watchkitapp.watchkitextension"
     ]
-
     %w[appstore].each do |type|
       match(
         type: type,
@@ -24,8 +22,7 @@ platform :ios do
       )
     end
   end
-
-
+  
   desc "Build FreeAPS X and upload to TestFlight"
   lane :beta do
     api_key = app_store_connect_api_key(
@@ -33,6 +30,7 @@ platform :ios do
       issuer_id: ENV['FASTLANE_ISSUER_ID'],
       key_filepath: "fastlane/AuthKey.p8"
     )
+    
     # 打印 Bundle ID 到日志
     sh "echo '===== BUNDLE ID DEBUG INFO ====='"
     sh "echo 'TEAMID: #{ENV['TEAMID']}'"
@@ -40,15 +38,30 @@ platform :ios do
     sh "echo 'WatchApp: ru.artpancreas.#{ENV['TEAMID']}.FreeAPS.watchkitapp'"
     sh "echo 'WatchExt: ru.artpancreas.#{ENV['TEAMID']}.FreeAPS.watchkitapp.watchkitextension'"
     sh "echo '================================='"
+    
+    # 🆕 添加这部分：获取签名证书和 provisioning profiles
+    app_ids = [
+      "ru.artpancreas.#{ENV['TEAMID']}.FreeAPS",
+      "ru.artpancreas.#{ENV['TEAMID']}.FreeAPS.watchkitapp",
+      "ru.artpancreas.#{ENV['TEAMID']}.FreeAPS.watchkitapp.watchkitextension"
+    ]
+    
+    match(
+      type: "appstore",
+      app_identifier: app_ids,
+      readonly: true,  # ⭐ 使用 readonly，只读取不创建
+      api_key: api_key
+    )
+    
     build_app(
       workspace: "FreeAPS.xcworkspace",
       scheme: "FreeAPS X",
-      configuration: "Release",          # ⭐ 强制使用 Release
+      configuration: "Release",
       export_method: "app-store",
       export_team_id: ENV['TEAMID'],
       xcargs: "-allowProvisioningUpdates SKIP_WATCH_COMPILE=YES"
     )
-
+    
     upload_to_testflight(
       api_key: api_key
     )
