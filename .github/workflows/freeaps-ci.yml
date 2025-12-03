@@ -23,21 +23,16 @@ jobs:
         run: sudo gem install fastlane -NV
 
       # 使用组织级 FASTLANE_KEY（p8 Base64）
-      - name: Decode App Store API key
+            - name: Decode App Store API key
         env:
           FASTLANE_KEY: ${{ secrets.FASTLANE_KEY }}
-        run: echo "$FASTLANE_KEY" | base64 --decode > AuthKey.p8
+        run: |
+          mkdir -p fastlane
+          echo "$FASTLANE_KEY" | base64 --decode > fastlane/AuthKey.p8
 
-      - name: Build and upload to TestFlight
+      - name: Build and upload with fastlane
         env:
           FASTLANE_ISSUER_ID: ${{ secrets.FASTLANE_ISSUER_ID }}
           FASTLANE_KEY_ID: ${{ secrets.FASTLANE_KEY_ID }}
-        run: |
-          fastlane run build_app \
-            workspace:"FreeAPS.xcworkspace" \
-            scheme:"FreeAPS" \
-            export_method:"app-store" \
-            api_key_path:"AuthKey.p8" \
-            api_key_id:"$FASTLANE_KEY_ID" \
-            api_key_issuer_id:"$FASTLANE_ISSUER_ID" \
-            upload:"true"
+        run: fastlane ios beta
+
