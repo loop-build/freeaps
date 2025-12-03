@@ -49,8 +49,10 @@ platform :ios do
     match(
       type: "appstore",
       app_identifier: app_ids,
-      readonly: true,  # ⭐ 使用 readonly，只读取不创建
-      api_key: api_key
+      readonly: true,
+      api_key: api_key,
+      force_for_new_devices: true,  # 🆕 添加这一行
+      skip_confirmation: true        # 🆕 添加这一行
     )
     
     build_app(
