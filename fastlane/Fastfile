@@ -12,7 +12,9 @@ platform :ios do
     build_app(
       workspace: "FreeAPS.xcworkspace",
       scheme: "FreeAPS X",
-      export_method: "app-store"
+      export_method: "app-store",
+      export_team_id: ENV['TEAMID'],
+      xcargs: "-allowProvisioningUpdates"
     )
 
     upload_to_testflight(
