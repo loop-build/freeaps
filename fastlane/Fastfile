@@ -18,7 +18,9 @@ platform :ios do
         type: type,
         app_identifier: app_ids,
         readonly: false,
-        api_key: api_key
+        api_key: api_key,
+        keychain_name: "fastlane_tmp_keychain",
+        keychain_password: ENV["MATCH_PASSWORD"]
       )
     end
   end
@@ -39,7 +41,6 @@ platform :ios do
     sh "echo 'WatchExt: ru.artpancreas.#{ENV['TEAMID']}.FreeAPS.watchkitapp.watchkitextension'"
     sh "echo '================================='"
     
-    # 🆕 添加这部分：获取签名证书和 provisioning profiles
     app_ids = [
       "ru.artpancreas.#{ENV['TEAMID']}.FreeAPS",
       "ru.artpancreas.#{ENV['TEAMID']}.FreeAPS.watchkitapp",
@@ -51,8 +52,8 @@ platform :ios do
       app_identifier: app_ids,
       readonly: true,
       api_key: api_key,
-      force_for_new_devices: true,  # 🆕 添加这一行
-      skip_confirmation: true        # 🆕 添加这一行
+      keychain_name: "fastlane_tmp_keychain",
+      keychain_password: ENV["MATCH_PASSWORD"]
     )
     
     build_app(
