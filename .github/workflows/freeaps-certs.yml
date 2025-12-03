@@ -1,0 +1,36 @@
+name: FreeAPS X Certificates
+
+on:
+  workflow_dispatch:
+
+jobs:
+  certs:
+    runs-on: macos-latest
+
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Setup Xcode
+        uses: maxim-lobanov/setup-xcode@v1
+        with:
+          xcode-version: latest
+
+      - name: Install fastlane
+        run: sudo gem install fastlane -NV
+
+      - name: Write App Store API key
+        env:
+          FASTLANE_KEY: ${{ secrets.FASTLANE_KEY }}
+        run: |
+          mkdir -p fastlane
+          printf '%s\n' "$FASTLANE_KEY" > fastlane/AuthKey.p8
+
+      - name: Run fastlane certs
+        env:
+          FASTLANE_ISSUER_ID: ${{ secrets.FASTLANE_ISSUER_ID }}
+          FASTLANE_KEY_ID: ${{ secrets.FASTLANE_KEY_ID }}
+          MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}
+          GH_PAT: ${{ secrets.GH_PAT }}
+          TEAMID: ${{ secrets.TEAMID }}
+        run: fastlane ios certs
