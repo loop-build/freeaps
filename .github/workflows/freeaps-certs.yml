@@ -1,10 +1,10 @@
-name: FreeAPS X Certificates
+name: Generate Certificates & Profiles
 
 on:
   workflow_dispatch:
 
 jobs:
-  certs:
+  match:
     runs-on: macos-latest
 
     steps:
@@ -26,11 +26,13 @@ jobs:
           mkdir -p fastlane
           printf '%s\n' "$FASTLANE_KEY" > fastlane/AuthKey.p8
 
-      - name: Run fastlane certs
+      - name: Run match (development + appstore)
         env:
           FASTLANE_ISSUER_ID: ${{ secrets.FASTLANE_ISSUER_ID }}
           FASTLANE_KEY_ID: ${{ secrets.FASTLANE_KEY_ID }}
           MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}
           GH_PAT: ${{ secrets.GH_PAT }}
           TEAMID: ${{ secrets.TEAMID }}
-        run: fastlane ios certs
+        run: |
+          fastlane match development --verbose
+          fastlane match appstore --verbose
