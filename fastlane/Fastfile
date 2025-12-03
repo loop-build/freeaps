@@ -52,7 +52,7 @@ platform :ios do
     match(
       type: "appstore",
       app_identifier: app_ids,
-      readonly: true,
+      readonly: false,
       api_key: api_key
     )
 
