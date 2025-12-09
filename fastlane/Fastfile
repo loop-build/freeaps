@@ -66,8 +66,11 @@ platform :ios do
     increment_build_number(
       xcodeproj: "#{GITHUB_WORKSPACE}/FreeAPS.xcodeproj",
       build_number: current_build_number
-    )      
-    
+    )  
+
+    ENV["LATEST_TESTFLIGHT_VERSION"] = previous_build_number.to_s
+    ENV["BUILD_NUMBER"] = current_build_number.to_s
+
     match(
       type: "appstore",
       git_basic_authorization: Base64.strict_encode64("#{GITHUB_REPOSITORY_OWNER}:#{GH_PAT}"),
