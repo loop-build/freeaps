@@ -72,6 +72,13 @@ jobs:
     permissions:
       contents: write
     steps:
+      - name: Setup Ruby and Bundler
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.2'
+          bundler: '2.7.2'
+          bundler-cache: true
+          
       - name: Set special variables
         run: |
           if [ ! -z ${{ vars.APP_IDENTIFIER }}  ]; then
@@ -90,7 +97,7 @@ jobs:
         uses: actions/checkout@v4
         with:
           token: ${{ secrets.GH_PAT }}
-          ref: ${{ env.TARGET_BRANCH }} 
+          ref: ${{ env.TARGET_BRANCH }}
       
       - name: Sync upstream changes
         if: | # do not run the upstream sync action on the upstream repository
